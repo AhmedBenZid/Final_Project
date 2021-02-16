@@ -1,0 +1,4 @@
+{
+  "MONGO_URI": "mongodb+srv://ahmed:abz123@cluster0.hwq2a.mongodb.net/guideApp?retryWrites=true&w=majority",
+  "jwtToken": "mysecrettoken"
+}
