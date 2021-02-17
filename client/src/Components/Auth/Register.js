@@ -3,13 +3,15 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../../Redux/Actions/auth';
 
 function Copyright() {
     return (
@@ -46,17 +48,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Register() {
     const classes = useStyles();
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: ''
-    })
-    const { firstName,
-        lastName,
-        email,
-        password } = formData;
-    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const handleRegister = () => {
+        const newUser = { firstName, lastName, email, password };
+        console.log('hhhhh')
+        dispatch(registerUser(newUser));
+        history.push('/');
+        setEmail('');
+        setFirstName('');
+        setLastName('');
+        setPassword('');
+    };
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -80,7 +89,7 @@ export default function Register() {
                                 id="firstName"
                                 label="First Name"
                                 autoFocus
-                                onChange={(e) => onChange(e)}
+                                onChange={(e) => setFirstName(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -92,7 +101,7 @@ export default function Register() {
                                 label="Last Name"
                                 name="lastName"
                                 autoComplete="lname"
-                                onChange={(e) => onChange(e)}
+                                onChange={(e) => setLastName(e.target.value)}
                                 required
                             />
                         </Grid>
@@ -106,7 +115,7 @@ export default function Register() {
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
-                                onChange={(e) => onChange(e)}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -119,17 +128,16 @@ export default function Register() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
-                                onChange={(e) => onChange(e)}
-                                required
+                                onChange={(e) => setPassword(e.target.value)} required
                             />
                         </Grid>
                     </Grid>
                     <Button
-                        type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        onClick={handleRegister}
                     >
                         Sign Up
                     </Button>

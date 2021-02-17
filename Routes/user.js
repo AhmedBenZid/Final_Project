@@ -46,7 +46,7 @@ router.post('/register', registerRules(), validator, async (req, res) => {
             config.get("jwtToken"),
             { expiresIn: 360000 }, (err, token) => {
                 if (err) throw err;
-                res.json({ token });
+                res.send({ msg: "User Registred..", token, user });
             })
 
     } catch (error) {
@@ -83,7 +83,7 @@ router.post('/auth', validator, loginRules(), async (req, res) => {
             config.get("jwtToken"),
             { expiresIn: 360000 }, (err, token) => {
                 if (err) throw err;
-                res.json({ token });
+                res.json({ token, user });
             })
 
     } catch (error) {
@@ -118,8 +118,7 @@ router.put('/', isAuth, async (req, res) => {
 //@acces :   Public
 router.get('/auth', isAuth, async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).select('-password');
-        res.json(user)
+        await res.status(200).send({ user: req.user })
     } catch (error) {
         res.status(500).send('Server Error')
     }

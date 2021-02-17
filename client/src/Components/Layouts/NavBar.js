@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
@@ -15,7 +15,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 // import MailIcon from '@material-ui/icons/Mail';
 // import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../Redux/Actions/auth'
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -106,6 +108,16 @@ export default function PrimarySearchAppBar() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const isAuth = useSelector(state => state.authReducer.isAuth);
+    const user = useSelector(state => state.authReducer.user);
+
+    const dispatch = useDispatch()
+    const history = useHistory()
+    const logOut = () => {
+        dispatch(logout());
+        handleMenuClose();
+    }
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -118,11 +130,71 @@ export default function PrimarySearchAppBar() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Log-out</MenuItem>
-        </Menu>
+            <MenuItem onClick={logOut}>Log-out</MenuItem>
+        </Menu >
     );
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
+    const authLinksMobile = (
+        <Fragment>
+            <MenuItem onClick={handleProfileMenuOpen}>
+                <IconButton
+                    aria-label="account of current user"
+                    aria-controls="primary-search-account-menu"
+                    aria-haspopup="true"
+                    color="inherit"
+                >
+                    <AccountCircle />
+                </IconButton>
+                <p>Profile</p>
+            </MenuItem>
+        </Fragment>
+    );
+    const authLinks = (
+        <Fragment>
+            <div className={classes.sectionDesktop}>
+                <IconButton
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-controls={menuId}
+                    aria-haspopup="true"
+                    onClick={handleProfileMenuOpen}
+                    color="inherit"
+                >
+                    {user ? `Welcome ${user.firstName} ${user.lastName}` : null}
+                    <AccountCircle />
+                </IconButton>
+            </div>
+            <div className={classes.sectionMobile}>
+                <IconButton
+                    aria-label="show more"
+                    aria-controls={mobileMenuId}
+                    aria-haspopup="true"
+                    onClick={handleMobileMenuOpen}
+                    color="inherit"
+                >
+                    <MoreIcon />
+                </IconButton>
+            </div>
+        </Fragment>
+    );
+
+    const guestLinksMobile = (
+        <Fragment>
+            <MenuItem>
+                <Link to='/login'><Button >Login</Button></Link>
+            </MenuItem>
+            <MenuItem>
+                <Link to='/register'><Button >Register</Button></Link>
+            </MenuItem>
+        </Fragment>
+    );
+    const guestLinks = (
+        <Fragment>
+            <Link to='/login'><Button variant="contained" color="primary">Login</Button></Link>
+            <Link to='/register'><Button variant="contained" color="secondary">Register</Button></Link>
+        </Fragment>
+    );
     const renderMobileMenu = (
         <Menu
             anchorEl={mobileMoreAnchorEl}
@@ -149,23 +221,8 @@ export default function PrimarySearchAppBar() {
                 </IconButton>
                 <p>Notifications</p>
             </MenuItem> */}
-            <MenuItem>
-                <Link to='/login'><Button >Login</Button></Link>
-            </MenuItem>
-            <MenuItem>
-                <Link to='/register'><Button >Register</Button></Link>
-            </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
+            {isAuth ? authLinksMobile : guestLinksMobile}
+
         </Menu>
     );
 
@@ -198,8 +255,7 @@ export default function PrimarySearchAppBar() {
                         />
                     </div>
                     <div className={classes.grow} />
-                    <div className={classes.sectionDesktop}>
-                        {/* <IconButton aria-label="show 4 new mails" color="inherit">
+                    {/* <IconButton aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <MailIcon />
                             </Badge>
@@ -209,30 +265,8 @@ export default function PrimarySearchAppBar() {
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton> */}
-                        <Link to='/login'><Button variant="contained" color="primary">Login</Button></Link>
-                        <Link to='/register'><Button variant="contained" color="secondary">Register</Button></Link>
-                        <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            Ahmed Ben Zid <AccountCircle />
-                        </IconButton>
-                    </div>
-                    <div className={classes.sectionMobile}>
-                        <IconButton
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon />
-                        </IconButton>
-                    </div>
+
+                    {isAuth ? authLinks : guestLinks}
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
