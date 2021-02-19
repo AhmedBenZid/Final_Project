@@ -10,8 +10,6 @@ connectDB();
 // Using express.Json
 app.use(express.json());
 
-
-
 // Create a Port
 const port = process.env.PORT || 5000
 

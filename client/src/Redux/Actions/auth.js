@@ -6,6 +6,8 @@ import {
     LOGOUT_USER,
     GET_AUTH_USER,
     AUTH_ERRORS,
+    CLEAR_PROFILE,
+    GET_ALLUSER
 } from '../ActionsTypes/types';
 
 //Set the user loading
@@ -96,7 +98,49 @@ export const getAuthUser = () => async (dispatch) => {
     }
 };
 
+export const getAllUsers = () => async (dispatch) => {
+    try {
+        //headers
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+            },
+        }
+        const res = await axios.get('api/user/all', config);
+        dispatch({
+            type: GET_ALLUSER,
+            payload: res.data
+        });
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: AUTH_ERRORS,
+        });
+    }
+};
+
+export const deleteUser = (user_id) => async (dispatch) => {
+    try {
+        //headers
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+            },
+        }
+        await axios.delete(`api/Profile/${user_id}`, config);
+        dispatch(getAllUsers())
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: AUTH_ERRORS,
+        });
+    }
+}
+
 export const logout = () => (dispatch) => {
+    dispatch({
+        type: CLEAR_PROFILE,
+    });
     dispatch({
         type: LOGOUT_USER,
     });

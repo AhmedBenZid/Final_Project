@@ -6,7 +6,8 @@ const bcryte = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const isAuth = require('../middelware/isAuth');
-const gravatar = require('gravatar')
+const gravatar = require('gravatar');
+const isAdmin = require('../middelware/isAdmin')
 
 
 //@route :   Post api/user
@@ -14,9 +15,10 @@ const gravatar = require('gravatar')
 //@acces :   Public
 router.post('/register', registerRules(), validator, async (req, res) => {
 
-    const { firstName, lastName, email, password, role, userPic } = req.body;
+    const { firstName, lastName, password, role, userPic } = req.body;
 
     try {
+        const email = req.body.email.toLowerCase()
         let user = await User.findOne({ email });
         if (user) {
             return res.status(400).json({ errors: [{ msg: 'User already exists' }] })
@@ -60,8 +62,8 @@ router.post('/register', registerRules(), validator, async (req, res) => {
 //@acces :   Public
 router.post('/auth', validator, loginRules(), async (req, res) => {
 
-    const { email, password } = req.body;
-
+    const { password } = req.body;
+    const email = req.body.email.toLowerCase()
     try {
 
         let user = await User.findOne({ email });
@@ -115,7 +117,7 @@ router.put('/', isAuth, async (req, res) => {
 
 //@route :   GET api/user/auth
 //@desc  :   Get logged user
-//@acces :   Public
+//@acces :   private
 router.get('/auth', isAuth, async (req, res) => {
     try {
         await res.status(200).send({ user: req.user })
@@ -124,4 +126,16 @@ router.get('/auth', isAuth, async (req, res) => {
     }
 });
 
+//@route :   GET api/user/all
+//@desc  :   Get all users
+//@acces :   private
+
+router.get('/all', isAdmin, async (req, res) => {
+    try {
+        const users = await User.find();
+        await res.status(200).send(users)
+    } catch (error) {
+        res.status(500).send('Server Error')
+    }
+})
 module.exports = router;

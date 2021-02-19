@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const isAdmin = require('../middelware/isAdmin');
 const { validator, destinationRules, hotelsRules } = require('../middelware/validator');
-const isAuth = require('../middelware/isAuth');
 const Destination = require('../Models/Destinations');
 
 //--------------------------------------------------------------

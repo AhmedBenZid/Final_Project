@@ -15,7 +15,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 // import MailIcon from '@material-ui/icons/Mail';
 // import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../Redux/Actions/auth'
 
@@ -112,7 +112,6 @@ export default function PrimarySearchAppBar() {
     const user = useSelector(state => state.authReducer.user);
 
     const dispatch = useDispatch()
-    const history = useHistory()
     const logOut = () => {
         dispatch(logout());
         handleMenuClose();
@@ -129,7 +128,8 @@ export default function PrimarySearchAppBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <Link to='/profile'><MenuItem onClick={handleMenuClose}>Profile</MenuItem></Link>
+            <Link to='/dashboard'><MenuItem onClick={handleMenuClose}>Dashboard</MenuItem></Link>
             <MenuItem onClick={logOut}>Log-out</MenuItem>
         </Menu >
     );
@@ -146,7 +146,6 @@ export default function PrimarySearchAppBar() {
                 >
                     <AccountCircle />
                 </IconButton>
-                <p>Profile</p>
             </MenuItem>
         </Fragment>
     );
@@ -228,7 +227,7 @@ export default function PrimarySearchAppBar() {
 
     return (
         <div className={classes.grow}>
-            <AppBar position="static">
+            <AppBar position="sticky">
                 <Toolbar>
                     <IconButton
                         edge="start"
@@ -238,7 +237,7 @@ export default function PrimarySearchAppBar() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Link to='/'><Typography className={classes.title} variant="h6" noWrap>
+                    <Link to='/' className='text-white' ><Typography className={classes.title} variant="h6" noWrap>
                         Tunisian Local-Guide
                     </Typography></Link>
                     <div className={classes.search}>

@@ -58,7 +58,7 @@ export default function Login() {
 
     const handleLogin = () => {
         dispatch(loginUser({ email, password }));
-        history.push('/');
+        history.push('/dashboard');
         setEmail('');
         setPassword('');
     };

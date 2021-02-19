@@ -60,7 +60,7 @@ export default function Register() {
         const newUser = { firstName, lastName, email, password };
         console.log('hhhhh')
         dispatch(registerUser(newUser));
-        history.push('/');
+        history.push('/dashboard');
         setEmail('');
         setFirstName('');
         setLastName('');

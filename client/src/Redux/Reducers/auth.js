@@ -5,6 +5,7 @@ import {
     LOGOUT_USER,
     GET_AUTH_USER,
     AUTH_ERRORS,
+    GET_ALLUSER
 } from '../ActionsTypes/types';
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
     isAuth: false,
     isLoading: true,
     msg: null,
+    users: []
 };
 
 const authReducer = (state = initialState, { type, payload }) => {
@@ -39,6 +41,13 @@ const authReducer = (state = initialState, { type, payload }) => {
                 isAuth: true,
                 ...payload,
             };
+        case GET_ALLUSER:
+            return {
+                ...state,
+                isLoading: false,
+                isAuth: true,
+                users: payload
+            }
         case AUTH_ERRORS:
         case LOGOUT_USER:
             localStorage.removeItem('token');
@@ -47,6 +56,7 @@ const authReducer = (state = initialState, { type, payload }) => {
                 token: null,
                 isAuth: false,
                 user: null,
+                users: null,
                 isLoading: false,
             };
         default:
