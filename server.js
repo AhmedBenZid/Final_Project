@@ -20,6 +20,14 @@ app.use('/api/profile', require('./Routes/profile'));
 app.use('/api/destinations', require('./Routes/destination'));
 app.use('/api/circuits', require('./Routes/circuit'));
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+    });
+}
+
+
 
 //Lunch the server
 
