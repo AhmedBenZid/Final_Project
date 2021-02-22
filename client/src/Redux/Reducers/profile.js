@@ -1,9 +1,10 @@
-import { CLEAR_PROFILE, GET_PROFILE, PROFILE_ERROR } from "../ActionsTypes/types";
+import { CLEAR_PROFILE, GET_GUIDE_PROFILE, GET_PROFILE, PROFILE_ERROR } from "../ActionsTypes/types";
 
 const initialState = {
     profile: null,
     circuits: [],
     loading: true,
+    guides: [],
     error: {}
 }
 
@@ -27,6 +28,12 @@ export default function (state = initialState, { type, payload }) {
                 ...state,
                 profile: null,
                 circuits: [],
+                loading: false
+            }
+        case GET_GUIDE_PROFILE:
+            return {
+                ...state,
+                guides: payload,
                 loading: false
             }
         default:

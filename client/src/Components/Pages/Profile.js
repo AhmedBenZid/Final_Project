@@ -1,41 +1,34 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Card, Button } from 'react-bootstrap';
+import { getUserProfile } from '../../Redux/Actions/profile';
+import EditProfile from '../Profile/EditProfile'
 
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        '& > *': {
-            margin: theme.spacing(1),
-            width: theme.spacing(16),
-            height: theme.spacing(16),
-        },
-
-        Paper: {
-            backgroundColor: theme.palette.background.paper,
-            border: '2px solid #000',
-            boxShadow: theme.shadows[5],
-            padding: theme.spacing(4, 4, 4),
-        }
-    },
-}));
 
 const Profile = () => {
-    const classes = useStyles();
 
-    const profile = useSelector(state => state.profile.profile)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getUserProfile())
+    }, [])
+    const profile = useSelector(state => state.profile.profile);
 
 
     return (
-        <div className={classes.root}>
+        <div>
 
-            <p>{profile && profile.description}</p>
-                Languages:
-            <ul> {profile && profile.languages.map(langue => <li>{langue}</li>)}</ul>
+            <Card style={{ width: '50rem', margin: "30px auto" }}>
+                <Card.Img variant="top" style={{ heigth: '200px' }} src={profile && profile.user && profile.user.userPic}></Card.Img>
+                <Card.Body>
+                    <Card.Title>{profile && profile.user && profile.user.firstName} {profile && profile.user && profile.user.lastName}</Card.Title>
+                    <Card.Text>
+                        {profile && profile.description}
+                    </Card.Text>
+                    <EditProfile profile={profile} />
+                </Card.Body>
+            </Card>
 
-        </div>
+        </div >
     )
 }
 

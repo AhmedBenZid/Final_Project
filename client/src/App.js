@@ -11,16 +11,17 @@ import { getAuthUser } from './Redux/Actions/auth';
 import Dashboard from './Components/Pages/Dashboard';
 import PrivateRoute from './Components/routes/PrivateRoute';
 import Destination from './Components/Pages/DestinationsList';
-
+import { getGuidesProfiles } from './Redux/Actions/profile';
 
 
 function App() {
 
   const dispatch = useDispatch();
   const getUser = () => dispatch(getAuthUser());
-
+  const getGuides = () => dispatch(getGuidesProfiles());
   useEffect(() => {
     getUser()
+    getGuides()
   }, []);
 
 

@@ -8,6 +8,7 @@ export const GET_AUTH_USER = 'GET_AUTH_USER';
 export const AUTH_ERRORS = 'AUTH_ERRORS';
 export const GET_PROFILE = 'GET_PROFILE';
 export const PROFILE_ERROR = 'PROFILE_ERROR';
+export const GET_GUIDE_PROFILE = 'GET_GUIDE_PROFILE';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 export const GET_ALLUSER = 'GET_ALLUSER';
 export const GET_DESTINATIONS = 'GET_DESTINATIONS';
@@ -16,3 +17,5 @@ export const GET_DESTINATIONID = 'GET_DESTINATIONID';
 export const GET_CERCUITS = 'GET_CERCUITS';
 export const ADD_CIRCUIT = 'ADD_CIRCUIT';
 export const REMOVE_CIRCUIT = 'REMOVE_CIRCUIT';
+export const EDIT_USER = 'EDIT_USER';
+

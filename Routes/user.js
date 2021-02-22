@@ -127,12 +127,12 @@ router.get('/auth', isAuth, async (req, res) => {
 });
 
 //@route :   GET api/user/all
-//@desc  :   Get all users
+//@desc  :   Get all users except Admin
 //@acces :   private
 
 router.get('/all', isAdmin, async (req, res) => {
     try {
-        const users = await User.find();
+        const users = await User.find({ role: { $ne: "admin" } }).select({ password: 0 });
         await res.status(200).send(users)
     } catch (error) {
         res.status(500).send('Server Error')

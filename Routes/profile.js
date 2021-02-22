@@ -16,7 +16,7 @@ const isAdmin = require('../middelware/isAdmin');
 
 router.get('/me', isGuid, async (req, res) => {
     try {
-        const profile = await Profile.findOne({ user: req.user.id }).populate('user', ["firstName", "lastName", "avatar"]);
+        const profile = await Profile.findOne({ user: req.user.id }).populate('user', ["firstName", "lastName", "avatar", "userPic"]);
 
         if (!profile) {
             return res.status(400).json({ msg: "There is no profile for this user" })
@@ -179,6 +179,22 @@ router.delete('/gallery/:img_id', isGuid, async (req, res) => {
 
 //-------------------------------------------------------------------------------------  
 
+
+
+//@route :   GET api/Profile/guides
+//@desc  :   Getting all Guides profile
+//@acces :   Public
+
+router.get('/guides/all', async (req, res) => {
+    try {
+        const guides = await User.find({ role: 'guide' })
+        const profiles = await Profile.find({ user: guides }).populate('user', ['firtsName', 'lastName', 'role', 'email'])
+        res.json(profiles)
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send('Server Error')
+    }
+})
 
 
 module.exports = router;

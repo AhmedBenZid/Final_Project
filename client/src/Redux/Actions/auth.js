@@ -7,7 +7,8 @@ import {
     GET_AUTH_USER,
     AUTH_ERRORS,
     CLEAR_PROFILE,
-    GET_ALLUSER
+    GET_ALLUSER,
+    EDIT_USER
 } from '../ActionsTypes/types';
 
 //Set the user loading
@@ -45,6 +46,24 @@ export const registerUser = (formData) => async (dispatch) => {
     }
 };
 
+//Edite User
+export const editUser = (editedRole) => async (dispatch) => {
+    try {
+        //headers
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+            },
+        };
+        const res = await axios.put('api/user/', config, editedRole)
+        dispatch({
+            type: EDIT_USER,
+            payload: editedRole
+        })
+    } catch (error) {
+
+    }
+}
 // Login User
 export const loginUser = (formData) => async (dispatch) => {
     dispatch(userLoading());

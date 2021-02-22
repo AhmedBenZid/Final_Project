@@ -53,7 +53,8 @@ const destinationRules = () => [
 const circuitRules = () => [
     body('title', 'Title is required').notEmpty(),
     body('description', 'Description is required').notEmpty(),
-    body('city', 'City is required').notEmpty()
+    body('city', 'City is required').notEmpty(),
+    body('price', 'Price is required').notEmpty()
 ];
 
 //---------------- Hotels Rules-------------//

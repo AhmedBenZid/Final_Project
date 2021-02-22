@@ -5,7 +5,8 @@ import {
     LOGOUT_USER,
     GET_AUTH_USER,
     AUTH_ERRORS,
-    GET_ALLUSER
+    GET_ALLUSER,
+    EDIT_USER
 } from '../ActionsTypes/types';
 
 const initialState = {
@@ -41,6 +42,11 @@ const authReducer = (state = initialState, { type, payload }) => {
                 isAuth: true,
                 ...payload,
             };
+        case EDIT_USER:
+            return {
+                ...state,
+                ...payload,
+            }
         case GET_ALLUSER:
             return {
                 ...state,

@@ -48,7 +48,6 @@ export default function UserCard({ user }) {
         dispatch(deleteUser(user._id))
     }
 
-
     return (
         <Card className={classes.root}>
             <CardHeader

@@ -39,6 +39,10 @@ const circuitSchema = Schema({
     dateCreation: {
         type: Date,
         default: Date.now()
+    },
+    price: {
+        type: Number,
+        required: true
     }
 
 });

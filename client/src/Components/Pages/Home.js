@@ -1,25 +1,33 @@
-import React, { useEffect } from 'react'
-import MainSection from '../Layouts/MainSection'
-import { useSelector, useDispatch } from 'react-redux'
-import UserCard from '../Profile/UserCard';
-import { getAllUsers } from '../../Redux/Actions/auth'
+import React from 'react'
+import SearchBar from '../Layouts/SearchBar'
+import ImageScroller from '../Layouts/ImageScroller';
+import CircuitList from '../Layouts/CircuitList'
+
 
 function Home() {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getAllUsers())
-    }, [])
-
-    const users = useSelector(state => state.authReducer.users);
 
     return (
-        <div>
-            <MainSection />
-            <div style={{ display: 'flex', flexWrap: "wrap" }}>
-                <h2>Our Guides</h2>
-                {users && users.map(user => (user.role === 'guide') && <UserCard user={user} />)}
+        // <div classNameName='' style={{ backgroundImage: 'url("/img/home.jpg")' }}>
+        //     <h1>hello</h1>
+        // </div >
+        <>
+            <div className="hero">
+                <div className="intro">
+                    <h1 data-aos="fade-up" data-aos-delay="">Travel to the most beautiful places in the world, like <span className="typed-words"></span></h1>
+                    <a href="#" className="btn btn-primary" data-aos="fade-up" data-aos-delay="100">Sing-up</a>
+                </div>
+                <div className="slides overlay">
+                    <img src="img/home.jpg" className="active" alt="Image" />
+                    <img src="img/home.jpg" alt="Image" />
+                    <img src="img/home.jpg" alt="Image" />
+                    <img src="img/home.jpg" alt="Image" />
+                    <img src="img/home.jpg" alt="Image" />
+                </div>
             </div>
-        </div>
+            <SearchBar />
+            <ImageScroller />
+            <CircuitList />
+        </>
     )
 }
 

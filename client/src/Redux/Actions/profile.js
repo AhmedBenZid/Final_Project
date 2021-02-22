@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {
     GET_PROFILE,
-    PROFILE_ERROR
+    PROFILE_ERROR,
+    GET_GUIDE_PROFILE
 } from '../ActionsTypes/types';
 
 //Get User Profile
@@ -23,6 +24,19 @@ export const getUserProfile = () => async dispatch => {
             type: PROFILE_ERROR,
             payload: { msg: error.response.statusText, status: error.response.status }
         })
+    }
+}
+
+// Get Guides Profile
+export const getGuidesProfiles = () => async (dispatch) => {
+    try {
+        const res = await axios('api/profile/guides');
+        dispatch({
+            type: GET_GUIDE_PROFILE,
+            payload: res.data
+        })
+    } catch (error) {
+        console.error(error.message);
     }
 }
 
