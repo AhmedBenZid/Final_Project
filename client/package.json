@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.6.3",
@@ -13,7 +14,9 @@
     "fontsource-roboto": "^4.0.0",
     "lock": "^1.1.0",
     "moment": "^2.29.1",
+    "ra-data-simple-rest": "^3.10.4",
     "react": "^17.0.1",
+    "react-admin": "^3.12.4",
     "react-bootstrap": "^1.4.3",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",

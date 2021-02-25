@@ -24,7 +24,7 @@ export const addCircuit = (newCir) => async dispatch => {
                 'x-auth-token': localStorage.getItem('token'),
             },
         };
-        await axios.post('api/circuits/', config)
+        await axios.post('api/circuits/', newCir, config)
         dispatch(getCircuits)
     } catch (error) {
         console.error(error);
@@ -39,7 +39,7 @@ export const removeCircuit = (cirId) => async dispatch => {
                 'x-auth-token': localStorage.getItem('token'),
             },
         };
-        await axios.delete(`api/ciruits/${cirId}`);
+        await axios.delete(`api/ciruits/${cirId}`, config);
         dispatch(getCircuits)
     } catch (error) {
         console.error(error);

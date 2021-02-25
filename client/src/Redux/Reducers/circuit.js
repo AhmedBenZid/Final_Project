@@ -1,5 +1,6 @@
 import {
-    ADD_CIRCUIT
+    ADD_CIRCUIT,
+    GET_CERCUITS
 } from '../ActionsTypes/types';
 
 const initialState = {
@@ -15,6 +16,13 @@ export default function (state = initialState, { type, payload }) {
                 circuits: payload,
                 isLoading: false
             }
+        case GET_CERCUITS:
+            return {
+                ...state,
+                circuits: payload,
+                isLoading: false
+            }
+        default:
             return state;
     }
 }

@@ -24,6 +24,7 @@ export const getDestinationId = (des_id) => async (dispatch) => {
         console.log(error);
     }
 }
+// Add or Update Destination
 
 export const addDestination = (newDes) => async (dispatch) => {
     try {
@@ -32,12 +33,25 @@ export const addDestination = (newDes) => async (dispatch) => {
                 'x-auth-token': localStorage.getItem('token'),
             },
         };
-        const res = await axios.post('api/destinations/', config)
-        dispatch(getDestinations());
+        const res = await axios.post('api/destinations/', newDes, config)
         dispatch({
             type: ADD_DESTINATIONS,
             payload: res.data
         })
+        dispatch(getDestinations());
+    } catch (error) {
+        console.log(error);
+    }
+}
+export const deleteDestination = (dest_id) => async (dispatch) => {
+    try {
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+            },
+        };
+        const res = await axios.delete(`api/destinations/remove/${dest_id}`, config)
+        dispatch(getDestinations());
     } catch (error) {
         console.log(error);
     }

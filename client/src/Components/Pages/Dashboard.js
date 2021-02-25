@@ -11,7 +11,8 @@ import UserCard from '../Profile/UserCard';
 import { getDestinations } from '../../Redux/Actions/destination';
 import { CardGroup } from 'react-bootstrap';
 import Destination from '../Pages/DestinationsList'
-
+import { Link } from 'react-router-dom';
+import AddCircuit from '../Profile/AddCircuit';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -34,11 +35,8 @@ const Dashboard = () => {
     const users = useSelector(state => state.authReducer.users);
 
     useEffect(() => {
-        if (user && user.role !== "admin") {
-            return dispatch(getUserProfile())
-        }
-        dispatch(getAllUsers())
-        dispatch(getDestinations())
+        return dispatch(getUserProfile())
+
     }, []);
     const destinations = useSelector(state => state.destination.destinations)
 
@@ -63,6 +61,7 @@ const Dashboard = () => {
     return (
         <>
             <h1 className="large text-primary">Dashboard</h1>
+            <Link to='/' className=""><h5 className="large text-primary">Back Home</h5></Link>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: "30px 0" }}>
                 <div><Avatar alt={user && user.lastName} src={user && user.userPic ? user.userPic : user.avatar} className={classes.large} /></div>
                 <div ><h1> {user && user.firstName} {user && user.lastName}</h1>
@@ -74,6 +73,10 @@ const Dashboard = () => {
                     <AddProfile />
                 </div>
                     : <Profile />}
+            </div>
+            <div><div className='flex flex-direction-row'>
+                <h3>My Circuits</h3>
+                <AddCircuit /></div>
             </div>
         </>
     )

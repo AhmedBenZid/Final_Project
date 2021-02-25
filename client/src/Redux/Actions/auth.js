@@ -47,7 +47,7 @@ export const registerUser = (formData) => async (dispatch) => {
 };
 
 //Edite User
-export const editUser = (editedRole) => async (dispatch) => {
+export const editUser = (user_id, editedUser) => async (dispatch) => {
     try {
         //headers
         const config = {
@@ -55,13 +55,14 @@ export const editUser = (editedRole) => async (dispatch) => {
                 'x-auth-token': localStorage.getItem('token'),
             },
         };
-        const res = await axios.put('api/user/', config, editedRole)
+        const res = await axios.put(`api/user/${user_id}`, editedUser, config)
         dispatch({
             type: EDIT_USER,
-            payload: editedRole
+            payload: editedUser
         })
+        dispatch(getAllUsers())
     } catch (error) {
-
+        console.error(error.message);
     }
 }
 // Login User
