@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+
 
 const SearchBar = () => {
+    const destinations = useSelector(state => state.destination.destinations)
     return (
         <div className="search-availablity">
             <div className="container">
@@ -10,15 +13,8 @@ const SearchBar = () => {
                             <div className="row justify-content-center">
                                 <div className="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-3">
                                     <select name="" id="" className="form-control custom-select">
-                                        <option value="">Destination</option>
-                                        <option value="">Peru</option>
-                                        <option value="">Japan</option>
-                                        <option value="">Thailand</option>
-                                        <option value="">Brazil</option>
-                                        <option value="">United States</option>
-                                        <option value="">Israel</option>
-                                        <option value="">China</option>
-                                        <option value="">Russia</option>
+                                        {destinations && destinations.map(destination =>
+                                            <option value={destination.title}>{destination.title}</option>)}
                                     </select>
                                 </div>
                                 <div className="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-3">

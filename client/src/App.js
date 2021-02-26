@@ -15,6 +15,10 @@ import { getGuidesProfiles } from './Redux/Actions/profile';
 import DestinationsList from './Components/Pages/DestinationsList';
 import AdminDashboard from './Components/Admin/AdminDashboard';
 import { getDestinations } from './Redux/Actions/destination';
+import { getCircuits } from './Redux/Actions/circuit';
+import Footer from './Components/Layouts/Footer';
+import GuidesList from './Components/Pages/GuidesList';
+import Circuit from './Components/Pages/Circuit';
 
 
 function App() {
@@ -26,6 +30,7 @@ function App() {
     getUser()
     getGuides()
     dispatch(getDestinations())
+    dispatch(getCircuits())
   }, []);
 
 
@@ -39,11 +44,14 @@ function App() {
             <AdminRoute exact path='/admin' component={AdminDashboard} />
             <PrivateRoute path='/dashboard' component={Dashboard} />
             <Route path='/profile' component={Profile} />
+            <Route path='/guides' component={GuidesList} />
             <Route path='/destination/:id' component={Destination} />
+            <Route path='/circuit/:id' render={(props) => <Circuit {...props} />} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/Login' component={Login} />
           </Switch>
         </section>
+        <Footer />
       </div>
     </Router >
   );

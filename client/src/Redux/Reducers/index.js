@@ -3,8 +3,8 @@ import alert from './alert';
 import authReducer from './auth';
 import profile from './profile';
 import destination from './destination';
-import circuit from './circuit';
+import circuitReducer from './circuitReducer';
 
 export default combineReducers({
-    alert, authReducer, profile, destination, circuit
+    alert, authReducer, profile, destination, circuitReducer
 });

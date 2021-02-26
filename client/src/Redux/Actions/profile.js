@@ -30,7 +30,7 @@ export const getUserProfile = () => async dispatch => {
 // Get Guides Profile
 export const getGuidesProfiles = () => async (dispatch) => {
     try {
-        const res = await axios('api/profile/guides');
+        const res = await axios('api/profile/guides/all');
         dispatch({
             type: GET_GUIDE_PROFILE,
             payload: res.data

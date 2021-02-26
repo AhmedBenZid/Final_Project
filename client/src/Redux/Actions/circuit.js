@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {
-    ADD_CIRCUIT, REMOVE_CIRCUIT, GET_CERCUITS
+    GET_CIRCUITS
 } from '../ActionsTypes/types';
 
 
@@ -8,7 +8,7 @@ export const getCircuits = () => async (dispatch) => {
     try {
         const res = await axios.get('api/circuits/');
         dispatch({
-            type: GET_CERCUITS,
+            type: GET_CIRCUITS,
             payload: res.data
         })
     } catch (error) {

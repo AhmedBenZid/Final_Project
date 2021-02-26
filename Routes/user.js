@@ -83,7 +83,7 @@ router.post('/auth', validator, loginRules(), async (req, res) => {
         }
         jwt.sign(payload,
             config.get("jwtToken"),
-            { expiresIn: 360000 }, (err, token) => {
+            { expiresIn: 3600 }, (err, token) => {
                 if (err) throw err;
                 res.json({ token, user });
             })
@@ -108,6 +108,19 @@ router.put('/', isAuth, async (req, res) => {
     }
     try {
         const user = await User.findOneAndUpdate({ _id: req.user.id }, { $set: newUser }, { new: true });
+        res.send(user)
+    } catch (error) {
+        console.error(error.message);
+        res.status(400).send('Server Error')
+    }
+});
+//@route :   PUT api/user/:id
+//@desc  :   Modifier user role
+//@acces :   Private
+
+router.put('/:id', isAdmin, async (req, res) => {
+    try {
+        const user = await User.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true });
         res.send(user)
     } catch (error) {
         console.error(error.message);

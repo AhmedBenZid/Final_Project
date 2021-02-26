@@ -188,7 +188,7 @@ router.delete('/gallery/:img_id', isGuid, async (req, res) => {
 router.get('/guides/all', async (req, res) => {
     try {
         const guides = await User.find({ role: 'guide' })
-        const profiles = await Profile.find({ user: guides }).populate('user', ['firtsName', 'lastName', 'role', 'email'])
+        const profiles = await Profile.find({ user: guides }).populate('user', ['firtsName', 'lastName', 'role', 'email', 'userPic'])
         res.json(profiles)
     } catch (error) {
         console.error(error.message)

@@ -38,7 +38,7 @@ export default function PrimarySearchAppBar() {
                     <ul className="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
                         <li className="active"><a href="/">Home</a></li>
                         <li><a href="/destinationlist">Destinations</a></li>
-                        <li><a href="about.html">Guides</a></li>
+                        <li><a href="/guides">Guides</a></li>
                         {user ? authUser() : notAuthUser()}
                     </ul>
                     <a href="#" className="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">

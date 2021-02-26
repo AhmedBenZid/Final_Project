@@ -13,6 +13,7 @@ import { CardGroup } from 'react-bootstrap';
 import Destination from '../Pages/DestinationsList'
 import { Link } from 'react-router-dom';
 import AddCircuit from '../Profile/AddCircuit';
+import CircuitCard from '../Layouts/CircuitCard';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -72,11 +73,16 @@ const Dashboard = () => {
                 {!profile ? <div><p>You have not yet create a profile, please add some info</p>
                     <AddProfile />
                 </div>
-                    : <Profile />}
+                    : <p>{profile.description}</p>}
             </div>
-            <div><div className='flex flex-direction-row'>
-                <h3>My Circuits</h3>
-                <AddCircuit /></div>
+            <div>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: "20px" }}>
+                    <h3>My Circuits</h3>
+                    <AddCircuit /></div>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <CircuitCard />
+                    <CircuitCard />
+                    <CircuitCard /></div>
             </div>
         </>
     )

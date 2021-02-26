@@ -1,7 +1,5 @@
-import {
-    ADD_CIRCUIT,
-    GET_CERCUITS
-} from '../ActionsTypes/types';
+
+import { ADD_CIRCUIT, GET_CIRCUITS } from '../ActionsTypes/types';
 
 const initialState = {
     circuits: [],
@@ -10,13 +8,7 @@ const initialState = {
 
 export default function (state = initialState, { type, payload }) {
     switch (type) {
-        case ADD_CIRCUIT:
-            return {
-                ...state,
-                circuits: payload,
-                isLoading: false
-            }
-        case GET_CERCUITS:
+        case GET_CIRCUITS:
             return {
                 ...state,
                 circuits: payload,

@@ -17,9 +17,9 @@ const circuitSchema = Schema({
     places: {
         type: [String],
     },
-    city: {
-        type: String,
-        required: true
+    destination: {
+        type: Schema.Types.ObjectId,
+        ref: 'destinations'
     },
     gallery: [
         {

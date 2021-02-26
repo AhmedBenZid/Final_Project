@@ -31,10 +31,10 @@ const AdminDashboard = () => {
     }
     const users = useSelector(state => state.authReducer.users);
     const destinations = useSelector(state => state.destination.destinations);
-    const circuits = useSelector(state => state.circuit.circuits)
+    const circuits = useSelector(state => state.circuitReducer.circuits)
     const isAuth = useSelector(state => state.authReducer.isAuth)
     const user = useSelector(state => state.authReducer.user)
-
+    console.log(circuits)
     if (!isAuth) {
         return <Spinner />
     }

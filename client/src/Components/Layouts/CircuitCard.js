@@ -6,13 +6,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import { RateIcon } from '@material-ui/icons/StarRateRounded'
-import { Button } from '@material-ui/core';
+import DemandeCircuit from './DemandeCircuit';
+import Spinner from './Spinner';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,49 +36,40 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function CircuitCard() {
+export default function CircuitCard({ circuit }) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-
-
     return (
-        <Card className={classes.root} >
+        !circuit ? <Spinner /> :
+            <Card className={classes.root} >
 
-            <CardMedia
-                className={classes.media}
-                image="./img/home.jpg"
-                title="Paella dish"
+                <Link to={`/circuit/${circuit._id}`} ><CardMedia
+                    className={classes.media}
+                    image="./img/Saharansky.jpg"
+                    title="Paella dish"
 
-            />
-            <CardContent>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><CardHeader
-                    avatar={
-                        <Avatar aria-label="recipe" className={classes.avatar}>
-                            R
-          </Avatar>
-                    }
-                    title="Shrimp "
-                />
-                    <b>80Dt</b>
-                </div>
-                <h5>Languages: French , English, Arabic</h5>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    This impressive paella is a perfect party dish and a fun meal to cook together with your
-                    guests. Add 1 cup of frozen peas along with the mussels, if you like.
-        </Typography>
-            </CardContent>
-            <CardActions disableSpacing style={{ float: 'right', margin: 'auto' }}>
-                <Button className='btn btn-primary m-2'>
-                    START JOURNEY
-                </Button>
-                <FavoriteIcon />
-                {/* <IconButton aria-label="add to favorites">
+                /></Link>
+                <CardContent>
+                    <h4>{circuit && circuit.title}</h4>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><CardHeader
+                        avatar={
+                            <Avatar aria-label="recipe" className={classes.avatar}>
+                                {circuit && circuit.user && circuit.user.firstName.charAt(0)}{circuit && circuit.user && circuit.user.lastName.charAt(0)}
+                            </Avatar>
+                        }
+                        title={circuit && circuit.title}
+                    />
+                        <b>{circuit.price}DT</b>
+                    </div>
+                    <h5>Languages: French , English, Arabic</h5>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {circuit.description}
+                    </Typography>
+                </CardContent>
+                <CardActions disableSpacing style={{ float: 'right', margin: 'auto' }}>
+                    <DemandeCircuit circuit={circuit} />
                     <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                    <ShareIcon />
-                </IconButton> */}
-            </CardActions>
-        </Card>
+                </CardActions>
+            </Card>
     );
 }
